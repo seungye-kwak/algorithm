@@ -1,7 +1,8 @@
+import sys
 n = int(input())
 total_meet = []
 for _ in range(n) :
-    s, e = map(int, input().split())
+    s, e = map(int, sys.stdin.readline().split())
     total_meet.append([s, e])
 #정렬
 total_meet.sort(key=lambda x: (x[1], x[0]))
