@@ -13,7 +13,7 @@ def bfs(x,y) :
     dy = [0, 0, -1, 1]
     
     queue = deque([(x,y)])
-    graph[x][y] = 0
+    graph[y][x] = 0
     h_cnt = 0
     while queue :
         h_cnt += 1
@@ -25,19 +25,18 @@ def bfs(x,y) :
             if nx<0 or nx>=n or ny<0 or ny>=n :
                 continue
             
-            if graph[nx][ny] == 1:
+            if graph[ny][nx] == 1:
                 queue.append((nx, ny))
-                graph[nx][ny] = 0
+                graph[ny][nx] = 0
     return h_cnt
     
 cnt = 0
 h_lst = []
-for a in range(n) :
-    for b in range(n) :
-        if graph[a][b] == 1:
+for b in range(n) :
+    for a in range(n) :
+        if graph[b][a] == 1:
             h_lst.append(bfs(a,b))
             cnt += 1
-            
 print(cnt)
 h_lst.sort()
 for k in h_lst :
