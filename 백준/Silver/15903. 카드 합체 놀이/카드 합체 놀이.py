@@ -6,8 +6,13 @@ input = sys.stdin.readline
 n, m = map(int, input().split())
 n_lst = list(map(int, input().split()))
 
+heapify(n_lst)
+
 for _ in range(m) :
-    n_lst.sort()
-    n_lst[0] = n_lst[1] = n_lst[0]+n_lst[1]
+    a = heappop(n_lst)
+    b = heappop(n_lst)
+    
+    heappush(n_lst, a+b)
+    heappush(n_lst, a+b)
     
 print(sum(n_lst))
