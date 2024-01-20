@@ -1,24 +1,28 @@
+import sys
+input = sys.stdin.readline
+
 n = int(input())
 
-stack=[]
-pm = []
+error=0
+stack = []
+answer = []
 num = 1
-stop = 0
-for i in range(n) :
-    a = int(input())
-    while num <= a :
-        stack.append(num)
-        num+=1
-        pm.append('+')
+for _ in range(n) :
+    k = int(input())
     
-    if stack[-1] == a :
+    while num <= k :
+        stack.append(num)
+        num += 1
+        answer.append('+')
+        
+    if stack[-1] == k :
         stack.pop()
-        pm.append('-')
+        answer.append('-')
+    
     else :
         print('NO')
-        stop=1
+        error = 1
         break
-        
-if stop == 0:
-    for i in pm :
-        print(i)
+    
+if error == 0 :
+    print(*answer, sep='\n')
