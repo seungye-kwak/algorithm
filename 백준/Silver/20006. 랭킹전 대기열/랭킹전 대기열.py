@@ -1,29 +1,29 @@
 p, m = map(int, input().split())
 
-rooms = []
+rooms = {}
 for i in range(p) :
     l, n = input().split()
     l = int(l)
-    
+  
     status = False
-    for r in rooms:
-        cut = r[0][0]
-        if cut -10 <= l <= cut + 10:
-            if len(r) < m:
-                r.append((l, n))
+    for r in rooms.keys():
+        key = rooms[r][0]
+        if key-10 <= l <= key+10:
+            if len(rooms[r][1]) < m:
+                rooms[r][1].append((l, n))
                 status = True
-                break
+                break 
         
-    if not status:
-        rooms.append([(l, n)])
+    if status == False:
+        rooms[n] = [l, [(l, n)]]
         
-for r in rooms :
-    if len(r) == m:
+for k, v in rooms.items() :
+    if len(v[1]) == m:
         print('Started!')
             
     else:
         print('Waiting!')
         
-    r.sort(key=lambda x: x[1])
-    for p in r:
+    v[1].sort(key=lambda x: x[1])
+    for p in v[1]:
         print(*p)
