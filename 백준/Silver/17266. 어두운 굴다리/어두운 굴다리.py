@@ -5,20 +5,13 @@ M = int(input()) # 가로등 개수
 loc = list(map(int, input().split())) #M개의 설치할 수 있는 가로등 위치 x
 
 def light_range(n, positions, height):
-    heap = []
-    for pos in positions:
-        heapq.heappush(heap, (pos-height, pos+height))
-    
     cur_pos = 0
-    while heap:
-        start, end = heapq.heappop(heap)
-        if start > cur_pos:
-            return False
-        cur_pos = max(cur_pos, end)
-        if cur_pos >= n:
-            return True
+    for pos in positions :
+        if pos - height > cur_pos :
+            return False #커버할 수 없는 위치 발생
+        cur_pos = pos + height
         
-    return cur_pos >= n
+    return cur_pos >= N
 
 left, right = 0, N
 result = N
