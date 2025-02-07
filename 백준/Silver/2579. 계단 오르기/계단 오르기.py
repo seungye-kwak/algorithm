@@ -1,18 +1,24 @@
-N = int(input())
+n = int(input())
+stairs = [0]
+for i in range(n):
+    stairs.append(int(input()))
+    
+# 계단은 한 번에 한 계단씩 또는 두 계단씩 오를 수 있다.
+# 연속된 세 개의 계단을 모두 밟아서는 안된다. 단, 시작점은 포함되지 않음
+# 마지막 도착 계단은 반드시 밟아야 함
 
-dp = [0] * (N+1)
-point = [0] * (N+1)
-for i in range(1, N+1):
-    point[i] = int(input())
-if N==1:
-    print(point[1])
-    exit()
-elif N==2:
-    print(sum(point[:3]))
-    exit()
-dp[1] = point[1]
-dp[2] = point[1]+point[2]
-for i in range(3, N+1):
-    dp[i] = max(dp[i-2]+point[i], dp[i-3]+point[i-1]+point[i])
-
-print(dp[-1])
+if n==1:
+    print(stairs[1])
+elif n==2 :
+    print(stairs[1]+stairs[2])
+else:
+    dp = [0] * (n+1)
+    dp[1] = stairs[1]
+    dp[2] = stairs[1]+stairs[2]
+    dp[3] = max(stairs[1]+stairs[3], stairs[2]+stairs[3])
+    
+    
+    for i in range(3, n+1):
+        dp[i] = max(dp[i-2], dp[i-3]+stairs[i-1]) + stairs[i]
+        
+    print(dp[n])
