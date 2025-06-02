@@ -1,0 +1,11 @@
+-- 코드를 입력하세요
+With CART AS (
+    SELECT CART_ID, SUM(NAME='Milk') AS Milk_YN, SUM(NAME='Yogurt') AS YOGURT_YN
+    FROM CART_PRODUCTS
+    GROUP BY CART_ID
+)
+
+SELECT CART_ID
+FROM CART
+WHERE milk_yn >= 1 AND yogurt_yn >= 1
+ORDER BY CART_ID;
