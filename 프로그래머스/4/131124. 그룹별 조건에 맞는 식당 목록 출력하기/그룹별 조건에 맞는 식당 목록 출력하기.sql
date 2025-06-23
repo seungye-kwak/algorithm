@@ -1,20 +1,16 @@
-WITH reviews AS (
-    SELECT MEMBER_ID, COUNT(*) AS r_cnt
+WITH review_cnt AS (
+    SELECT member_id, count(*) as cnt
     FROM REST_REVIEW
-    GROUP BY MEMBER_ID
+    GROUP BY 1
 ),
-review_rank AS (
-    SELECT r.member_id, RANK() OVER (ORDER BY r.r_cnt DESC) as rnk
-    FROM reviews r
+max_member AS (
+    SELECT member_id
+    FROM review_cnt
+    WHERE cnt = (SELECT MAX(cnt) FROM review_cnt)
 )
 
-SELECT mf.member_name, r.review_text, date_format(r.review_date, '%Y-%m-%d') AS review_date
-FROM REST_REVIEW AS r
-JOIN MEMBER_PROFILE AS mf
-ON r.member_id = mf.member_id
-WHERE r.member_id IN (
-    SELECT member_id
-    FROM review_rank
-    WHERE rnk = 1
-)
-ORDER BY r.review_date, r.review_text;
+SELECT mf.member_name, r.review_text, date_format(r.review_date, '%Y-%m-%d')
+FROM max_member m JOIN rest_review r
+ON m.member_id = r.member_id
+JOIN member_profile AS mf ON m.member_id = mf.member_id
+ORDER BY 3, 2
