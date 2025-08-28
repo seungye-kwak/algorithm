@@ -15,7 +15,7 @@ for i, (idx, g, s, b) in enumerate(d) :
         prev_rank = 1
     else :
         if medal != prev_medal :
-            prev_rank += 1
+            prev_rank = i+1
     rank[idx] = prev_rank
     prev_medal = medal
     
